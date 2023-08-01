@@ -1,4 +1,4 @@
 [[redirects]]
   from = "/*"
-  to = "https://books-management-nine.vercel.app/api"
+  to = "/index.html"
   status = 200
