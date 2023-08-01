@@ -1,2 +1,0 @@
-
-/api/* https://books-management-nine.vercel.app/:splat 200
