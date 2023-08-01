@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { useParams, useNavigate } from "react-router-dom";
-import { userRequest } from "../requestMethods";
 import { AiFillDelete } from "react-icons/ai";
 import { RxUpdate } from "react-icons/rx";
 import { BiUserCircle, BiLike, BiDislike } from "react-icons/bi";
@@ -12,6 +11,7 @@ import Rating from "@mui/material/Rating";
 import { incrementLikes, decrementLikes } from "../redux/bookRedux";
 
 import ReviewModal from "../components/ReviewModel";
+import axios from "axios";
 const Container = styled.div`
   height: auto;
 
@@ -167,7 +167,7 @@ export const SingleBook = () => {
   useEffect(() => {
     const getReviews = async (e) => {
       try {
-        const res = await userRequest.get("/getReviews", {
+        const res = await axios.get("https://books-management-nine.vercel.app/api/getReviews", {
           headers: { "x-api-key": currentUser?.token },
         });
         if (res) {
@@ -195,8 +195,8 @@ export const SingleBook = () => {
     try {
       const review = comments;
 
-      const response = await userRequest.post(
-        `/books/${bookId}/reviews`,
+      const response = await axios.post(
+        `https://books-management-nine.vercel.app/api/books/${bookId}/reviews`,
         { reviewedBy, rating, review },
         {
           headers: { "x-api-key": currentUser?.token },
@@ -213,7 +213,7 @@ export const SingleBook = () => {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const response = await userRequest.get(`/books/${bookId}`, {
+        const response = await axios.get(`https://books-management-nine.vercel.app/api/books/${bookId}`, {
           headers: { "x-api-key": currentUser?.token },
         });
         if (response) {
@@ -228,7 +228,7 @@ export const SingleBook = () => {
 
   const handleDelete = async (e) => {
     try {
-      const response = await userRequest.delete(`/books/${bookId}`, {
+      const response = await axios.delete(`https://books-management-nine.vercel.app/api/books/${bookId}`, {
         headers: { "x-api-key": currentUser?.token },
       });
       alert(response.data.message);
@@ -246,7 +246,7 @@ export const SingleBook = () => {
     // Replace 'bookId' with the actual ID of the book you want to like
     dispatch(incrementLikes(bookId));
     try {
-      let res = await userRequest.put(`/likes/like/${bookId}`);
+      let res = await axios.put(`https://books-management-nine.vercel.app/api/likes/like/${bookId}`);
 
       setLikes(res.data.likes);
     } catch (err) {}
@@ -256,7 +256,7 @@ export const SingleBook = () => {
     // Replace 'bookId' with the actual ID of the book you want to dislike
     dispatch(decrementLikes(bookId));
     try {
-      let res = await userRequest.put(`/likes/dislike/${bookId}`);
+      let res = await axios.put(`https://books-management-nine.vercel.app/api/likes/dislike/${bookId}`);
    
       setDislikes(res.data.dislike);
     } catch (err) {}

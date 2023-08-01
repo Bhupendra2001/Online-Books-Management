@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import { GetBooks } from '../redux/apiCalls'
-import { publicRequest, userRequest } from "../requestMethods";
+
 import {   useDispatch } from "react-redux";
+import axios from "axios";
 
 const Container = styled.div`
   height: 100%;
@@ -73,9 +74,9 @@ const Books = ({ title }) => {
       try {
         let response;
         if (title) {
-          response = await publicRequest.get(`/getbooks/${title}`);
+          response = await axios.get(`https://books-management-nine.vercel.app/api/getbooks/${title}`);
         } else {
-          response = await publicRequest.get("/getAllbooks");
+          response = await axios.get("https://books-management-nine.vercel.app/api/getAllbooks");
         }
         
         if (response) {

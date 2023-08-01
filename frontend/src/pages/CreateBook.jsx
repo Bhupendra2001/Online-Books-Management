@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import { userRequest } from "../requestMethods";
 import { useSelector } from "react-redux";
 import {Navbar} from '../components/Navbar'
 import {Footer} from '../components/Footer'
+import axios from "axios";
 const Container = styled.div`
   background-color: #151628;
 
@@ -99,7 +99,7 @@ export const CreateBook = () => {
       Object.keys(inputs).forEach((key) => {
         formData.append(key, inputs[key]);
       });
-      const res = await userRequest.post("/books", formData, {
+      const res = await axios.post("https://books-management-nine.vercel.app/api/books", formData, {
         headers: {
           "Content-Type": "multipart/form-data", 
           

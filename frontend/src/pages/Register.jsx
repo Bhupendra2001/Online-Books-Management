@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import img_logo from "./Register.png";
-
-import { publicRequest } from "../requestMethods";
+import axios from "axios";
 const Container = styled.div`
   background-color: #151628;
 
@@ -127,7 +126,7 @@ export const Register = () => {
     e.preventDefault();
 
     try {
-      const res = await publicRequest.post("/register", inputs);
+      const res = await axios.post("https://books-management-nine.vercel.app/api/register", inputs);
       if (res) {
         alert("Register successfully");
         console.log(res.data);

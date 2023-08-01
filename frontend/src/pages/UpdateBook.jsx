@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import { userRequest } from "../requestMethods";
 import { useParams} from 'react-router-dom'
 import {  useSelector } from "react-redux";
 import { Navbar} from '../components/Navbar'
 import { Footer} from '../components/Footer'
+import axios from "axios";
 const Container = styled.div`
 background-color: #151628;
 
@@ -104,7 +104,7 @@ export const UpdateBook = () => {
       Object.keys(inputs).forEach((key) => {
         formData.append(key, inputs[key]);
       });
-          const res = await userRequest.put(`/books/${bookId}`, formData ,{
+          const res = await axios.put(`https://books-management-nine.vercel.app/api/books/${bookId}`, formData ,{
             headers: {
               'Content-Type': 'multipart/form-data', 
               "x-api-key"  : currentUser?.token

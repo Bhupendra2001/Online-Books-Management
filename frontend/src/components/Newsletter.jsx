@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { ImHappy } from "react-icons/Im";
 import { GiLotusFlower } from "react-icons/gi";
-import { userRequest } from "../requestMethods";
 import { useSelector } from "react-redux";
-
+import axios from "axios";
 const Container = styled.div`
   background-color: #70d7f1;
   height: 110px;
@@ -54,7 +53,7 @@ const Newsletter = () => {
     if (email.match(emailPattern)) {
 
       try{
-        const res = await userRequest.post(`/Email/${email}` , {
+        const res = await axios.post(`https://books-management-nine.vercel.app/api/Email/${email}` , {
           headers : {"x-api-key"  : currentUser?.token}
         })
         if(res){
