@@ -1,2 +1,2 @@
-# Wildcard redirect
-/api/* https://books-management-nine.vercel.app//:splat 200
+
+/api/* https://books-management-nine.vercel.app/:splat 200
