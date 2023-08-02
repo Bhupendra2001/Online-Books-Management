@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   padding: 20px;
   border-radius: 10px;
   margin: 40px 40px 40px 60px;
-  display: flex;
+  display: ${(props)=> props.fetching == 'true' ? "none" : "flex"};
 `;
 const Category = styled.p`
   color: pink;
@@ -156,6 +156,7 @@ function timeAgo(timestamp) {
 export const SingleBook = () => {
   const [likes, setLikes] = useState(0);
   const [dislike, setDislikes] = useState(0);
+  const [fetching , setFeching] = useState(true)
 
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -212,12 +213,16 @@ export const SingleBook = () => {
 
   useEffect(() => {
     const getBooks = async () => {
+      setFeching(true)
       try {
         const response = await axios.get(`https://books-management-nine.vercel.app/api/books/${bookId}`, {
           headers: { "x-api-key": currentUser?.token },
         });
         if (response) {
           setBook(response.data.data);
+          setFeching(false)
+          setLikes(response.data.data.likes);
+          setDislikes(response.data.data.dislike);
         }
       } catch (err) {
         alert(err.response.data.message);
@@ -225,6 +230,13 @@ export const SingleBook = () => {
     };
     getBooks();
   }, []);
+
+  const tostring = (input)=>  {
+    let data = input
+
+    const formattedDate =  new Date(data).toString().slice(0, 15)
+    return formattedDate
+  }
 
   const handleDelete = async (e) => {
     try {
@@ -266,7 +278,7 @@ export const SingleBook = () => {
     <Container>
       <Navbar />
       {
-        <Wrapper>
+        <Wrapper fetching={fetching.toString()}>
           <ImgCont>
             <Img src={book?.bookCover} />
           </ImgCont>
@@ -276,7 +288,7 @@ export const SingleBook = () => {
             <ISBN> {book.ISBN}</ISBN>
             <Excerpt>Excerpt : {book.excerpt}</Excerpt>
             <Reviews> Reviews : {book.reviews}</Reviews>
-            <ReleasedAt> ReleasedAt : {book.releasedAt}</ReleasedAt>
+            <ReleasedAt> ReleasedAt : {tostring(book.releasedAt)}</ReleasedAt>
             <Category> Category : {book.category}</Category>
 
             <Subcategory> Subcategory :{book.subcategory}</Subcategory>
