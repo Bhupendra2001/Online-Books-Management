@@ -33,16 +33,5 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "vite": "^4.4.5"
-  },
-  "vercel": {
-    "build": {
-      "env": {
-        "VITE_API_BASE_URL": "http://localhost:5173/"
-      }
-    },
-    "routes": [
-      { "src": "/api/(.*)", "dest": "https://books-management-nine.vercel.app" },
-      { "src": "/(.*)", "dest": "/index.html" }
-    ]
   }
 }
