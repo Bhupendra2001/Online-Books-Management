@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
-import { ImHappy } from "react-icons/Im";
+import { BiHappy } from "react-icons/bi";
 import { GiLotusFlower } from "react-icons/gi";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -91,7 +91,7 @@ const Newsletter = () => {
         <div>
           <Title>Thank you for subscribing!</Title>
           <GiLotusFlower style={{ color: "yellowgreen" }} />{" "}
-          <ImHappy style={{ color: "yellow" }} />{" "}
+          <BiHappy style={{ color: "yellow" }} />{" "}
           <GiLotusFlower style={{ color: "yellowgreen" }} />
         </div>
       )}
