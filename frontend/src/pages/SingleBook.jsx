@@ -307,7 +307,7 @@ export const SingleBook = () => {
           </DetailCont>
         </Wrapper>
       }
-      <Rate onClick={handleReviewModalOpen}>Give Your Rating</Rate>
+    { currentUser &&  <Rate onClick={handleReviewModalOpen}>Give Your Rating</Rate>}
       <ReviewModal
         isOpen={isReviewModalOpen}
         onClose={handleReviewModalClose}
